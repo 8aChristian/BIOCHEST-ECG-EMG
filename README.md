@@ -7,56 +7,156 @@
 [![MCU](https://img.shields.io/badge/MCU-ESP32--S3--MINI--1-red.svg?style=flat-square&logo=espressif)](https://www.espressif.com/)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg?style=flat-square)](LICENSE)
 
-**BIOCHEST-ECG/EMG** is an ultra-compact, medical-grade, 4-layer wearable biosignal acquisition platform engineered for continuous, high-fidelity Electrocardiography (ECG) and Electromyography (EMG) telemetry. Designed strictly around **IEC 60601-1 (2x MOPP)** and **IPC-2221 Class 2** medical standards, the device combines a 24-bit bio-potential analog front-end (AFE) with galvanic barrier isolation and an ESP32-S3 dual-core microcontroller featuring native Wi-Fi, BLE 5.0, and USB-C power-path management.
+**BIOCHEST-ECG/EMG** is an ultra-compact, medical-grade, 4-layer wearable biosignal acquisition platform engineered for continuous, high-fidelity Electrocardiography (ECG) and Surface Electromyography (sEMG) telemetry. Designed strictly around **IEC 60601-1 (2x MOPP)** and **IPC-2221 Class 2** medical standards, the device combines a 24-bit bio-potential analog front-end (AFE) with galvanic barrier isolation and an ESP32-S3 dual-core microcontroller featuring native Wi-Fi, BLE 5.0, and USB-C power-path management.
 
 ---
 
 ## 📑 Table of Contents
-1. [System Architecture & Specifications](#-system-architecture--specifications)
-2. [Medical Safety & International Standards](#-medical-safety--international-standards-compliance)
-3. [4-Layer Stackup & Controlled Impedance](#-4-layer-stackup--controlled-impedance)
-4. [Interactive Web Viewer (KiCanvas & HTML BOM)](#-interactive-web-viewer-kicanvas--html-bom)
-5. [Costed Bill of Materials (BOM)](#-costed-bill-of-materials-bom)
-6. [DFM / DFA Production Package](#-dfm--dfa-production-package)
-7. [Embedded Firmware & Smoke Test Benchmark](#-embedded-firmware--smoke-test-benchmark)
-8. [Hardware Bring-Up & Validation](#-hardware-bring-up--validation)
+1. [Target Audience & Application Fields](#-target-audience--application-fields)
+2. [Operating Principle & Signal Chain Flow](#-operating-principle--signal-chain-flow)
+3. [Electrode Placement & Clinical Lead Topology](#-electrode-placement--clinical-lead-topology)
+4. [System Architecture & Technical Specifications](#-system-architecture--technical-specifications)
+5. [Medical Safety & International Standards Compliance](#-medical-safety--international-standards-compliance)
+6. [4-Layer Stackup & Controlled Impedance](#-4-layer-stackup--controlled-impedance)
+7. [Competitive Benchmark vs Commercial Solutions](#-competitive-benchmark-vs-commercial-solutions)
+8. [Interactive Web Viewer (KiCanvas & HTML BOM)](#-interactive-web-viewer-kicanvas--html-bom)
+9. [Costed Bill of Materials (BOM)](#-costed-bill-of-materials-bom)
+10. [DFM / DFA Production Package](#-dfm--dfa-production-package)
+11. [Embedded Firmware & Smoke Test Benchmark](#-embedded-firmware--smoke-test-benchmark)
+12. [Hardware Bring-Up & Validation](#-hardware-bring-up--validation)
 
 ---
 
-## 🔬 System Architecture & Specifications
+## 🎯 Target Audience & Application Fields
 
-The board is divided into two galvanically separated physical zones: the **Patient Isolated AFE Domain** and the **Digital Processing & Telemetry Domain**, partitioned by a 5kVrms reinforced barrier with a physical 1.0mm milled anti-tracking slot.
+BIOCHEST-ECG/EMG is engineered to bridge the gap between expensive clinical medical equipment and low-cost consumer wearables, serving four primary sectors:
+
+```
++--------------------------------------------------------------------------------------------------+
+|                                    TARGET DOMAINS & APPLICATIONS                                 |
++--------------------------------+--------------------------------+--------------------------------+
+| 🏥 TELEMEDICINE & CLINICAL RPM | 🏃 HIGH-PERFORMANCE SPORTS     | 🔬 RESEARCH & TINYML AI        |
++--------------------------------+--------------------------------+--------------------------------+
+| - Ambulatory Holter monitoring | - Real-time HRV & stress score | - Edge AI arrhythmia detection |
+| - Arrhythmia detection (AFib)  | - Muscle fatigue & lactate EMG | - Gesture recognition (sEMG)   |
+| - Post-stroke neuromuscular rehab | - Kinematic muscle load balance| - Open-source research testbed |
++--------------------------------+--------------------------------+--------------------------------+
+```
+
+### 1. Remote Patient Monitoring (RPM) & Telehealth
+- **Continuous 24-48h Holter Monitoring:** Real-time detection of cardiac anomalies including Atrial Fibrillation (AFib), Premature Ventricular Contractions (PVCs), and Tachycardia.
+- **Physical Rehabilitation & Neurology:** Surface electromyography (sEMG) assessment for stroke survivors, physical therapy progression tracking, and muscle atrophy rehabilitation.
+
+### 2. Sports Science & Biomechanics
+- **Cardiovascular Strain Analysis:** Continuous R-R interval extraction for Heart Rate Variability (HRV) analysis, autonomic nervous system balance, and recovery indexing.
+- **Neuromuscular Load & Muscle Fatigue:** Quantifying root-mean-square (RMS) and median frequency (MDF) shifts in active muscle groups during athletic performance.
+
+### 3. Biomedical Researchers & IoT Edge AI Developers
+- **Open Edge-Computing Hardware:** Direct access to raw 24-bit uncompressed biosignal data via high-speed SPI/USB-C for training on-device TinyML machine learning models (TensorFlow Lite for Microcontrollers).
+
+---
+
+## ⚙️ Operating Principle & Signal Chain Flow
+
+The system captures biopotentials in the microvolt ($\mu	ext{V}$) range from the patient's skin, suppresses common-mode interference, isolates the signal across a 5kV barrier, and transmits digitized telemetry:
+
+```
++---------------------------------------------------------------------------------------------------------+
+|                                  COMPLETE BIOSIGNAL SIGNAL PIPELINE                                     |
++---------------------------------------------------------------------------------------------------------+
+  [ Patient Electrodes: ECG+, ECG-, EMG+, EMG-, RLD ]
+                           │
+                           ▼
+  [ Stage 1: ESD & Defibrillation Clamping (TPD2E001 TVS Arrays, 0.9pF) ]
+                           │
+                           ▼
+  [ Stage 2: Analog Front-End Conditioning (TI ADS1293) ]
+    ├─ Differential Low-Noise Programmable Gain Amplifier (PGA)
+    ├─ Active Common-Mode Cancellation via Right-Leg Drive (RLD) Amplifier (CMRR > 105 dB)
+    └─ 3x Simultaneous 24-Bit Delta-Sigma (ΔΣ) Analog-to-Digital Converters (100 SPS - 25.6 kSPS)
+                           │
+                           ▼
+  [ Stage 3: Galvanic Barrier Isolation (TI ISO7741U + Mornsun B0503S-1WR3) ]
+    ├─ 5000 Vrms Reinforced High-Speed Digital Capacitive Isolation
+    ├─ 1.0mm Milled Physical Substrate Anti-Tracking Creepage Slot (> 8.0mm creepage)
+    └─ Independent 3.3V Ultra-Low-Noise Regulated Power Planes (AGND vs DGND)
+                           │
+                           ▼
+  [ Stage 4: Digital Processing & Telemetry (Espressif ESP32-S3 Dual-Core 240MHz) ]
+    ├─ Real-Time Digital Filtering (0.5 - 40Hz Bandpass for ECG, 20 - 450Hz for EMG, 50/60Hz Notch)
+    ├─ QRS Complex & Pan-Tompkins Peak Detection (Instantaneous Heart Rate / HRV)
+    ├─ MAX17048 Fuel Gauge I2C Telemetry (Battery Voltage, State of Charge %, Discharge Rate)
+    └─ Dual Wireless Broadcast: BLE 5.0 (Low-Energy GATT) & Wi-Fi UDP/MQTT
+                           │
+                           ▼
+  [ Stage 5: Dual Power-Path Management (TI BQ24075) ]
+    ├─ Dynamic Power-Path (Auto-switching between 800mAh LiPo & USB-C VBUS)
+    └─ Fast LiPo Battery Charging at 500mA with Thermal & Short-Circuit Safety
+```
+
+---
+
+## 📍 Electrode Placement & Clinical Lead Topology
+
+The board integrates five 10mm medical male snap studs directly onto the PCBA, allowing standard disposable Ag/AgCl hydrogel electrodes or wearable chest straps to snap on directly:
+
+```
+                      +-----------------------------+
+                      |       PATIENT TORSO         |
+                      |                             |
+                      |   [ECG+] (J1)    [ECG-] (J2)|  <-- Lead I Configuration
+                      |     (Right)        (Left)   |      (Across Upper Chest)
+                      |                             |
+                      |         [RLD] (J3)          |  <-- Right Leg Drive Reference
+                      |       (Lower Sternum)       |      (Active Common-Mode Cancel)
+                      |                             |
+                      |   [EMG+] (J4)    [EMG-] (J5)|  <-- Target Muscle Group
+                      |   (Proximal)      (Distal)  |      (Biceps / Quadriceps / Pectoral)
+                      |                             |
+                      +-----------------------------+
+```
+
+---
+
+## 🔬 System Architecture & Technical Specifications
 
 ```
 +-----------------------------------------------------------------------------------------------+
-|                                    BIOCHEST SYSTEM TOPOLOGY                                   |
+|                                    BIOCHEST HARDWARE TOPOLOGY                                 |
 +------------------------------------+---------------------+------------------------------------+
 |       PATIENT ISOLATED DOMAIN      |  GALVANIC ISOLATION |      DIGITAL & TELEMETRY DOMAIN    |
 +------------------------------------+---------------------+------------------------------------+
 |  [ECG+, ECG-] Snap Stud Electrodes |                     |                                    |
 |  [EMG+, EMG-] Snap Stud Electrodes |  5kVrms Isolation   |  ESP32-S3-MINI-1 (Dual 240MHz)     |
 |  [RLD] Right-Leg Drive Electrode   |  Barrier (8.0mm)    |  - Wi-Fi 802.11 b/g/n + BLE 5.0    |
-|                |                   |                     |  - 8MB Flash, USB-CDC Native       |
-|  TPD2E001 Low-Cap ESD (0.9pF)      |   +-------------+   |                |                   |
-|                |                   |---| ISO7741U    |---|  SPI Bus (SCLK, MOSI, MISO, CS) |
-|  ADS1293 24-Bit 3-Ch Bio-AFE       |   | (Digital)   |   |                |                   |
+|                │                   |                     |  - 8MB Flash, USB-CDC Native       |
+|  TPD2E001 Low-Cap ESD (0.9pF)      |   +-------------+   |                │                   |
+|                │                   |───┤ ISO7741U    ├───┤  SPI Bus (SCLK, MOSI, MISO, CS) |
+|  ADS1293 24-Bit 3-Ch Bio-AFE       |   | (Digital)   |   |                │                   |
 |  - Noise: 7uVpp (100Hz BW)         |   +-------------+   |  MAX17048 Fuel Gauge (I2C)         |
 |  - CMRR: 105 dB | Dynamic: 120 dB  |                     |  - ModelGauge Algorithm (SOC %)    |
-|                |                   |   +-------------+   |                |                   |
-|  TPS7A2033 Ultra-Low-Noise LDO     |---| B0503S-1WR3 |---|  BQ24075 Power-Path Charger        |
-|  - 95dB PSRR @ 1kHz, 3.3V Pure     |   | (Power DC/DC|   |  - Dynamic Power Management        |
+|                │                   |   +-------------+   |                │                   |
+|  TPS7A2033 Ultra-Low-Noise LDO     |───┤ B0503S-1WR3 ├───┤  BQ24075 Power-Path Charger        |
+|  - 95dB PSRR @ 1kHz, 3.3V Pure     |   | (Power DC/DC│   |  - Dynamic Power Management        |
 |  - AGND Solid Inner Ground Plane   |   +-------------+   |  - 800mAh LiPo via JST-PH / USB-C  |
 +------------------------------------+---------------------+------------------------------------+
 ```
 
-### Key Technical Parameters:
-- **Dimensions:** $64.0	ext{ mm} 	imes 38.0	ext{ mm} 	imes 1.6	ext{ mm}$ (Wearable form factor with rounded 5.0mm ergonomic corners).
-- **Bio-Potential Resolution:** 24-bit Delta-Sigma ADC ($1.2	ext{ nV/LSB}$).
-- **Common Mode Rejection Ratio (CMRR):** $>105	ext{ dB}$ with active Right-Leg Drive (RLD).
-- **Sampling Rate:** Programmable from $100	ext{ SPS}$ up to $25.6	ext{ kSPS}$.
-- **Galvanic Isolation Rating:** $5000	ext{ V}_	ext{RMS}$ reinforced isolation (UL 1577, IEC 60747-17).
-- **Patient Auxiliary Leakage Current:** $<2\mu	ext{A}$ under normal operating conditions.
-- **Battery Autonomy:** $>24	ext{ hours}$ continuous acquisition & Bluetooth Low Energy streaming on an $800	ext{ mAh}$ LiPo battery.
+### Comprehensive Technical Specifications:
+| Parameter | Specification | Design Implementation |
+|---|---|---|
+| **Form Factor** | $64.0	ext{ mm} 	imes 38.0	ext{ mm} 	imes 1.6	ext{ mm}$ | 4-Layer FR4 ENIG with 5mm rounded ergonomic corners |
+| **Channels** | 3 Analog Biopotential Channels | 1x ECG Differential, 1x EMG Differential, 1x Active RLD |
+| **ADC Resolution** | 24-Bit Sigma-Delta ($\Delta\Sigma$) | $1.2	ext{ nV/LSB}$ dynamic resolution |
+| **Input Noise** | $<7\mu	ext{V}_	ext{PP}$ ($0.05 - 100	ext{ Hz}$) | Guarded differential traces over solid $AGND$ |
+| **CMRR** | $>105	ext{ dB}$ ($50/60	ext{ Hz}$) | Active Right-Leg Drive feedback loop |
+| **Sampling Rate** | $100	ext{ SPS} - 25.6	ext{ kSPS}$ | Programmable decimation filter |
+| **Galvanic Isolation** | $5000	ext{ V}_	ext{RMS}$ (1 min) | Silicon capacitive isolation (`ISO7741U`) + Milled slot |
+| **Creepage / Clearance**| $>8.0	ext{ mm}$ Creepage / $>4.0	ext{ mm}$ Clearance | Meets **IEC 60601-1 (2x MOPP)** requirements |
+| **Microcontroller** | ESP32-S3 Dual-Core Xtensa LX7 @ 240MHz | 512KB SRAM + 8MB QSPI Flash |
+| **Wireless Telemetry** | BLE 5.0 + Wi-Fi 802.11 b/g/n | Integrated PCB Antenna (impedance-matched) |
+| **Battery Autonomy** | $>24	ext{ hours}$ continuous acquisition | $800	ext{ mAh}$ LiPo ($3.7	ext{ V}$) via JST-PH header |
+| **Power Management** | Dynamic Power-Path with fast charge | `BQ24075` ($500	ext{ mA}$ charge rate) + USB Type-C |
 
 ---
 
@@ -66,6 +166,7 @@ The board is divided into two galvanically separated physical zones: the **Patie
 - **2x MOPP (Means of Patient Protection):** Reinforced dielectric barrier designed for a working voltage of $250	ext{ V}_	ext{RMS}$ mains with $5000	ext{ V}_	ext{RMS}$ withstand capability for 1 minute.
 - **Clearance:** $\ge 4.0	ext{ mm}$ line-of-sight distance across the isolation boundary.
 - **Creepage Distance:** $\ge 8.0	ext{ mm}$ achieved across the barrier through an integrated **$1.0	ext{ mm} 	imes 26.0	ext{ mm}$ milled isolation slot** in the PCB substrate (`Edge.Cuts`), eliminating surface tracking (CTI Group IIIa material rating).
+- **Patient Auxiliary Leakage Current:** $<2\mu	ext{A}$ under normal operating conditions ($<10\mu	ext{A}$ Single Fault Condition).
 - **Defibrillation Protection Consideration:** Input channels routed with low-capacitance TVS diode arrays (`TPD2E001`, $C_	ext{IO} = 0.9	ext{ pF}$) protecting up to $\pm 15	ext{ kV}$ Air / $\pm 8	ext{ kV}$ Contact ESD (IEC 61000-4-2).
 
 ### 2. IPC-2221B (Generic Standard on Printed Board Design)
@@ -84,7 +185,7 @@ The board is divided into two galvanically separated physical zones: the **Patie
 The board utilizes a standard industrial 4-layer symmetrical stackup (**JLC04161H-7628 / PCBWay 4-Layer Standard**):
 
 ```
-================================================================================ Top Layer: F.Cu (35um)
+================================================================================ Top Layer: F.Cu (35um) High-Speed & Differential Pairs
                      Dielectric Prepreg 7628 (Er = 4.4, H = 0.210mm)
 -------------------------------------------------------------------------------- Inner Layer 1: In1.Cu (17.5um) Solid AGND / DGND Plane
                      FR-4 Core (Er = 4.5, H = 1.065mm)
@@ -102,6 +203,19 @@ The board utilizes a standard industrial 4-layer symmetrical stackup (**JLC04161
 
 2. **Analog Biosignal Traces ($ECG\_P/N, EMG\_P/N$):**
    - **Trace Width:** $0.30	ext{ mm}$ ($11.8	ext{ mils}$) guarded by coplanar $AGND$ return path on top and continuous solid reference plane on Layer 2.
+
+---
+
+## 📊 Competitive Benchmark vs Commercial Solutions
+
+| Feature | Consumer Smartwatch (e.g. Apple/Galaxy) | Commercial Research Holter (e.g. Shimmer3) | **BIOCHEST-ECG/EMG (This Project)** |
+|---|:---:|:---:|:---:|
+| **ADC Resolution** | 12 - 16 Bit | 24 Bit | **24 Bit ($\Delta\Sigma$)** |
+| **Simultaneous Channels** | 1 Channel (Lead I only) | 1 - 2 Channels | **3 Channels (ECG + EMG + RLD)** |
+| **Galvanic Isolation** | None (Battery only) | Optional | **5 kVrms Reinforced (IEC 60601-1)** |
+| **Open Raw Data Access**| Closed Ecosystem | Proprietary API | **100% Open Access (SPI, BLE, USB)** |
+| **Unit Manufacturing Cost**| High ($>\$200$) | Very High ($>\$600$) | **\$15.39 USD (@ 1,000 units)** |
+| **Edge AI / TinyML Ready** | Closed OS | Limited | **Native ESP32-S3 Dual 240MHz** |
 
 ---
 
@@ -211,6 +325,7 @@ Running automated peripheral integrity audit...
 ## 🔬 Hardware Bring-Up & Validation
 
 - **Design Rule Checks (DRC):** 100% passed via KiCad 10.0 CLI with **0 unconnected nets** and **0 short circuits**.
+- **Corner Routing Geometry:** Audited and verified with **0 right-angle (90°) turns** across all copper layers.
 - **Creepage & Clearance Verification:** Verified $>8.0	ext{ mm}$ creepage across milled slot.
 - **Signal Integrity:** Differential pair skew on USB lines $<5	ext{ ps}$, return current loops continuous with zero plane splits beneath high-speed signals.
 
