@@ -1,0 +1,23 @@
+(footprint "Snap_Button_Male_10mm"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(uuid "711dd187-abc4-49c0-adc4-811fc8570dc5")
+	(property "Reference" "REF**"
+		(at 0 -6.5 0)
+		(layer "F.SilkS")
+		(uuid "6dfaf490-1946-43ba-98cf-d4cee2766b9c")
+		(effects (font (size 1 1) (thickness 0.15)))
+	)
+	(property "Value" "Snap_Button"
+		(at 0 6.5 0)
+		(layer "F.Fab")
+		(uuid "03fe994a-95f9-4dca-ba4a-38dd5bff6338")
+		(effects (font (size 1 1) (thickness 0.15)))
+	)
+	(fp_circle (center 0 0) (end 5.0 0) (stroke (width 0.15) (type solid)) (layer "F.SilkS") (uuid "30e00db7-c1d0-44fd-a0b3-9cea50b56a9b"))
+	(fp_circle (center 0 0) (end 5.3 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "882d2503-1f05-42c7-8852-67f973d20e72"))
+	(pad "1" thru_hole circle (at 0 0) (size 4.5 4.5) (drill 2.0) (layers "*.Cu" "*.Mask") (uuid "367f1fdb-0265-46b2-aad5-388cf901d60f"))
+	(pad "1" smd circle (at 0 0) (size 6.0 6.0) (layers "F.Cu" "F.Mask" "F.Paste") (uuid "16ea21ce-e6b3-4abe-8ff0-d970c891bfa5"))
+)

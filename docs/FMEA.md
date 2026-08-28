@@ -1,0 +1,9 @@
+# BIOCHEST-ECG/EMG — Análisis de Modos y Efectos de Falla (DFMEA)
+
+| # | Componente / Función | Modo de Falla Potencial | Efecto Potencial | Severidad (S) | Causa Potencial | Ocurrencia (O) | Controles de Diseño Actuales | Detección (D) | RPN | Acciones Mitigadoras |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Electrodos Textiles | Pérdida de contacto con la piel por movimiento/sudor | Artefactos severos o pérdida de señal | 4 | Tensión insuficiente de banda o sequedad | 6 | Detección activa de Lead-Off en ADS1293 | 2 | **48** | Clasificador emite estado `INVALID_SIGNAL`, no genera falsa alarma. |
+| 2 | Entradas Analógicas | Descarga electrostática (ESD) al manipular snaps | Daño irreversible a entradas ADS1293 | 7 | Descarga humana corporal ($\pm 8\,\text{kV}$) | 4 | TPD2E001 ($\pm 15\,\text{kV}$ aire, $\pm 8\,\text{kV}$ contacto) | 2 | **56** | Arreglos ESD de 0.7pF en paralelo con cada snap. |
+| 3 | Barrera Galvánica | Perforación dieléctrica por sobretensión externa | Corriente peligrosa hacia el paciente | 9 | Conexión USB a PC defectuosa durante carga | 2 | ISO7741U ($5\,\text{kV}_{\text{RMS}}$) + Ranura fresada 2mm | 2 | **36** | Operación desconectada de USB durante monitorización corporal. |
+| 4 | Algoritmo QRS | Falsa detección de taquicardia por ruido electromuscular (sEMG) | Alarma injustificada al cuidador | 5 | Contracción muscular violenta o temblor | 5 | Filtro Pan-Tompkins + verificación de persistencia | 3 | **75** | Regla de persistencia: requiere $\ge 10$ latidos anómalos consecutivos con señal de alta calidad (SQI > 0.8). |
+| 5 | Batería LiPo | Sobrecarga / Sobredescarga / Cortocircuito | Hinchazón o degradación térmica | 8 | Falla en fuente USB o celda defectuosa | 2 | BQ24075 (Power Path) + DW01A + FS8205 | 2 | **32** | Doble nivel de protección por hardware con corte automático a 4.25V y 2.5V. |

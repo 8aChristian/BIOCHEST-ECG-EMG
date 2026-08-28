@@ -1,0 +1,26 @@
+Designator,Quantity,Component Value,Footprint,Description,Manufacturer,MPN,Domain
+U1,1,ADS1293,BIOCHEST:ADS1293_WQFN-28_5x5mm,"Low-Power 3-Ch 24-bit Biopotential AFE",Texas Instruments,ADS1293CIRHBR,AFE
+U2,1,ISO7741U,BIOCHEST:ISO7741U_SOIC-16W_DWW,"Reinforced 4-Ch Digital Isolator 5kVrms",Texas Instruments,ISO7741UDWR,Barrier
+U3,1,ESP32-S3-MINI-1,BIOCHEST:ESP32-S3-MINI-1,"Dual-Core 240MHz MCU WiFi/BLE Module",Espressif,ESP32-S3-MINI-1-N8,Digital
+U7,1,TPS7A2033,BIOCHEST:SOT-23-5,"Ultra-Low Noise 3.3V LDO 200mA (6.5uVrms)",Texas Instruments,TPS7A2033DBVR,AFE
+U8,1,AP2112K-3.3,BIOCHEST:SOT-23-5,"Ultra-Low Dropout 3.3V LDO 600mA",Diodes Inc,AP2112K-3.3TRG1,Digital
+U9,1,BQ24075,BIOCHEST:BQ24075_QFN-20_3.5x3.5mm,"USB LiPo Linear Charger with Power-Path",Texas Instruments,BQ24075RGTR,Digital
+U10,1,B0503S-1WR3,BIOCHEST:B0503S_1WR3_SIP-4,"1W Isolated DC-DC Converter 5V/3.3V",Mornsun,B0503S-1WR3,Barrier
+U11,1,MAX17048,BIOCHEST:MAX17048_DFN-8_2x2mm,"I2C LiPo Fuel Gauge with ModelGauge",Analog Devices,MAX17048G+T,Digital
+U12,1,DW01A,BIOCHEST:SOT-23-6,"One-Cell Li-Ion Battery Protection IC",Fortune Semiconductor,DW01A-G,Digital
+Q1,1,FS8205,BIOCHEST:TSSOP-8,"Dual N-Channel MOSFET for Battery Switch",Fortune Semiconductor,FS8205,Digital
+D1,1,TPD2E001,BIOCHEST:TPD2E001_SOT-23,"2-Ch Low-Capacitance ESD Array (0.7pF)",Texas Instruments,TPD2E001DRLR,AFE
+D2,1,TPD2E001,BIOCHEST:TPD2E001_SOT-23,"2-Ch Low-Capacitance ESD Array (0.7pF)",Texas Instruments,TPD2E001DRLR,AFE
+D3,1,TPD2E001,BIOCHEST:TPD2E001_SOT-23,"2-Ch Low-Capacitance ESD Array (0.7pF)",Texas Instruments,TPD2E001DRLR,AFE
+D4,1,Green LED,BIOCHEST:LED_0603_1608Metric,"Status Indicator LED (Normal/Telemetry)",Kingbright,APT1608SGC,Digital
+D5,1,Red LED,BIOCHEST:LED_0603_1608Metric,"Alert Indicator LED (Anomaly/Critical)",Kingbright,APT1608SURC,Digital
+J1,1,Snap_Button,BIOCHEST:Snap_Button_Male_10mm,"Chest Band 10mm Stud (ECG+)",Custom,SNAP-M10,AFE
+J2,1,Snap_Button,BIOCHEST:Snap_Button_Male_10mm,"Chest Band 10mm Stud (ECG-)",Custom,SNAP-M10,AFE
+J3,1,Snap_Button,BIOCHEST:Snap_Button_Male_10mm,"Chest Band 10mm Stud (RLD)",Custom,SNAP-M10,AFE
+J4,1,Snap_Button,BIOCHEST:Snap_Button_Male_10mm,"Chest Band 10mm Stud (EMG+)",Custom,SNAP-M10,AFE
+J5,1,Snap_Button,BIOCHEST:Snap_Button_Male_10mm,"Chest Band 10mm Stud (EMG-)",Custom,SNAP-M10,AFE
+J6,1,USB-C 16P,BIOCHEST:USB_C_Receptacle_16P_SurfaceMount,"USB Type-C Receptacle 16-Pin SMD",Korean Hroparts,TYPE-C-31-M-12,Digital
+BT1,1,JST-PH 2P,BIOCHEST:JST_PH_S2B-PH-K-S_1x02_P2.00mm_Horizontal,"Battery Header 2.00mm Pitch Horizontal",JST,S2B-PH-K-S,Digital
+SW1,1,Reset Switch,BIOCHEST:SW_Push_SPST_NO_3x4mm,"Tactile Push Button SMD (Reset)",C&K,PTS636,Digital
+SW2,1,Boot Switch,BIOCHEST:SW_Push_SPST_NO_3x4mm,"Tactile Push Button SMD (Boot)",C&K,PTS636,Digital
+C1-C7,7,Decoupling Caps,BIOCHEST:C_0603_1608Metric,"MLCC Decoupling Capacitors X7R",Murata,GRM188R71E104KA01D,Mixed

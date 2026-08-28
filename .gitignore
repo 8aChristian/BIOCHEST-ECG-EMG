@@ -1,0 +1,22 @@
+# KiCad temporary & backup files
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.kicad_prl
+*-bak
+_autosave-*
+*.tmp
+*.lck
+.history/
+BIOCHEST-ECG-EMG-backups/
+
+# PlatformIO & IDEs
+.pio/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store

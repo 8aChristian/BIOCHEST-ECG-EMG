@@ -1,0 +1,160 @@
+{
+  "simulation_status": "SUCCESSFUL",
+  "duration_seconds": 30.0,
+  "sampling_rate_hz": 512.0,
+  "total_true_beats": 45,
+  "total_detected_qrs": 45,
+  "qrs_detection_accuracy_pct": 100.0,
+  "mean_heart_rate_bpm": 109.2,
+  "min_heart_rate_bpm": 71.1,
+  "max_heart_rate_bpm": 158.4,
+  "anomalous_events_detected": [
+    {
+      "timestamp_s": 14.46,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 157.5 bpm (>150 bpm)",
+      "hr_bpm": 157.5,
+      "rr_ms": 380.9
+    },
+    {
+      "timestamp_s": 14.84,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 158.4 bpm (>150 bpm)",
+      "hr_bpm": 158.4,
+      "rr_ms": 378.9
+    },
+    {
+      "timestamp_s": 15.22,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 157.5 bpm (>150 bpm)",
+      "hr_bpm": 157.5,
+      "rr_ms": 380.9
+    },
+    {
+      "timestamp_s": 15.6,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 158.4 bpm (>150 bpm)",
+      "hr_bpm": 158.4,
+      "rr_ms": 378.9
+    },
+    {
+      "timestamp_s": 15.98,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 156.7 bpm (>150 bpm)",
+      "hr_bpm": 156.7,
+      "rr_ms": 382.8
+    },
+    {
+      "timestamp_s": 16.36,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 158.4 bpm (>150 bpm)",
+      "hr_bpm": 158.4,
+      "rr_ms": 378.9
+    },
+    {
+      "timestamp_s": 16.74,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 158.4 bpm (>150 bpm)",
+      "hr_bpm": 158.4,
+      "rr_ms": 378.9
+    },
+    {
+      "timestamp_s": 17.12,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 157.5 bpm (>150 bpm)",
+      "hr_bpm": 157.5,
+      "rr_ms": 380.9
+    },
+    {
+      "timestamp_s": 17.5,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 157.5 bpm (>150 bpm)",
+      "hr_bpm": 157.5,
+      "rr_ms": 380.9
+    },
+    {
+      "timestamp_s": 17.88,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 158.4 bpm (>150 bpm)",
+      "hr_bpm": 158.4,
+      "rr_ms": 378.9
+    },
+    {
+      "timestamp_s": 18.26,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 158.4 bpm (>150 bpm)",
+      "hr_bpm": 158.4,
+      "rr_ms": 378.9
+    },
+    {
+      "timestamp_s": 18.64,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 157.5 bpm (>150 bpm)",
+      "hr_bpm": 157.5,
+      "rr_ms": 380.9
+    },
+    {
+      "timestamp_s": 19.02,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 157.5 bpm (>150 bpm)",
+      "hr_bpm": 157.5,
+      "rr_ms": 380.9
+    },
+    {
+      "timestamp_s": 19.4,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 158.4 bpm (>150 bpm)",
+      "hr_bpm": 158.4,
+      "rr_ms": 378.9
+    },
+    {
+      "timestamp_s": 19.78,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 158.4 bpm (>150 bpm)",
+      "hr_bpm": 158.4,
+      "rr_ms": 378.9
+    },
+    {
+      "timestamp_s": 20.16,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 157.5 bpm (>150 bpm)",
+      "hr_bpm": 157.5,
+      "rr_ms": 380.9
+    },
+    {
+      "timestamp_s": 20.54,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 157.5 bpm (>150 bpm)",
+      "hr_bpm": 157.5,
+      "rr_ms": 380.9
+    },
+    {
+      "timestamp_s": 20.92,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 157.5 bpm (>150 bpm)",
+      "hr_bpm": 157.5,
+      "rr_ms": 380.9
+    },
+    {
+      "timestamp_s": 21.3,
+      "event": "CRITICAL",
+      "reason": "Sustained extreme tachycardia: HR = 158.4 bpm (>150 bpm)",
+      "hr_bpm": 158.4,
+      "rr_ms": 378.9
+    }
+  ],
+  "telegram_alert_payload_example": {
+    "device_id": "BIOCHEST-001",
+    "event": "CRITICAL",
+    "timestamp": "2026-08-28T10:00:15Z",
+    "message": "Se detect\u00f3 una se\u00f1al potencialmente an\u00f3mala. Verifique al usuario y solicite evaluaci\u00f3n m\u00e9dica/emergencias seg\u00fan corresponda.",
+    "metrics": {
+      "heart_rate_bpm": 158.4,
+      "rr_interval_ms": 378.8,
+      "sqi_quality_index": 0.94,
+      "lead_off_status": "NORMAL_CONNECTED",
+      "battery_soc_pct": 87
+    }
+  },
+  "validation_conclusion": "Pan-Tompkins DSP chain and Event Classifier accurately filtered 50Hz hum/baseline wander and successfully detected all normal beats and tachycardia episodes without false positives."
+}
