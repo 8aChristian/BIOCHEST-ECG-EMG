@@ -9,6 +9,12 @@
 
 **BIOCHEST-ECG/EMG** is an ultra-compact, medical-grade, 4-layer wearable biosignal acquisition platform engineered for continuous, high-fidelity Electrocardiography (ECG) and Surface Electromyography (sEMG) telemetry. Designed strictly around **IEC 60601-1 (2x MOPP)** and **IPC-2221 Class 2** medical standards, the device combines a 24-bit bio-potential analog front-end (AFE) with galvanic barrier isolation and an ESP32-S3 dual-core microcontroller featuring native Wi-Fi, BLE 5.0, and USB-C power-path management.
 
+<p align="center">
+  <img src="board_preview.svg" alt="BIOCHEST-ECG/EMG 4-Layer Medical PCB Preview" width="850">
+  <br>
+  <em>Figure 1: Full 4-Layer High-Density Medical PCBA with Galvanic Isolation Barrier & Routed Copper Tracks.</em>
+</p>
+
 ---
 
 ## 📑 Table of Contents
@@ -202,7 +208,32 @@ The board utilizes a standard industrial 4-layer symmetrical stackup (**JLC04161
    - **Calculated Differential Impedance:** $89.7\Omega$ (Verified with 2D Field Solver).
 
 2. **Analog Biosignal Traces ($ECG\_P/N, EMG\_P/N$):**
-   - **Trace Width:** $0.30\text{ mm}$ ($11.8\text{ mils}$) guarded by coplanar $AGND$ return path on top and continuous solid reference plane on Layer 2.
+   - **Trace Width:** $0.25\text{ mm}$ ($9.84\text{ mils}$) guarded by coplanar $AGND$ return path on top and continuous solid reference plane on Layer 2.
+
+### 🔬 Multi-Layer Routing Architecture & Copper Breakdown
+
+<table align="center">
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/pcb_top_layer_routing.svg" width="100%"><br>
+      <b>Layer 1 (Top / F.Cu):</b> Analog Biosignals, Differential Pairs & SMD Lands
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/pcb_bottom_layer_routing.svg" width="100%"><br>
+      <b>Layer 4 (Bottom / B.Cu):</b> Digital Buses, Control Traces & GND Pour
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/pcb_inner_layers.svg" width="100%"><br>
+      <b>Layers 2 & 3 (In1.Cu / In2.Cu):</b> Isolated AGND/DGND Solid Plane & Power Trunks
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/pcb_routing_all_layers.svg" width="100%"><br>
+      <b>Composite 4-Layer Routing:</b> High-Density Interconnect (HDI) Full Stack
+    </td>
+  </tr>
+</table>
 
 ---
 
