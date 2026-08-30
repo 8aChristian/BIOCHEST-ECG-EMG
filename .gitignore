@@ -6,6 +6,7 @@
 _autosave-*
 *.tmp
 *.lck
+*.rpt
 .history/
 BIOCHEST-ECG-EMG-backups/
 

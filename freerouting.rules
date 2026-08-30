@@ -1,0 +1,213 @@
+
+(rules PCB freerouting.dsn
+  (snap_angle 
+    fortyfive_degree
+  )
+  (rule
+    (width 200.0)
+    (clearance 150.0)
+    (clearance 100.0 (type smd_to_turn_gap))
+    (clearance 37.6 (type smd))
+    (clearance 200.0 (type "Power_HV"))
+    (clearance 200.0 (type "Power_LV"))
+    (clearance 150.0 (type "Power_3V3"))
+    (clearance 200.0 (type "Signal_Analog"))
+    (clearance 150.0 (type "USB_Diff"))
+    (clearance 150.0 (type GND))
+    (clearance 150.0 (type Digital))
+    (clearance 500.0 (type "board_edge"))
+  )
+  (padstack "Via[0-3]_600:300_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle In1.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle In2.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (padstack "Via[0-3]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle In1.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle In2.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-3]_600:300_um" "Via[0-3]_600:300_um" default
+  )
+  (via 
+    "Via[0-3]_800:400_um" "Via[0-3]_800:400_um" default
+  )
+  (via 
+    "Via[0-3]_600:300_um-Power_HV" "Via[0-3]_600:300_um" "Power_HV"
+  )
+  (via 
+    "Via[0-3]_800:400_um-Power_HV" "Via[0-3]_800:400_um" "Power_HV"
+  )
+  (via 
+    "Via[0-3]_600:300_um-Power_LV" "Via[0-3]_600:300_um" "Power_LV"
+  )
+  (via 
+    "Via[0-3]_800:400_um-Power_LV" "Via[0-3]_800:400_um" "Power_LV"
+  )
+  (via 
+    "Via[0-3]_600:300_um-Power_3V3" "Via[0-3]_600:300_um" "Power_3V3"
+  )
+  (via 
+    "Via[0-3]_800:400_um-Power_3V3" "Via[0-3]_800:400_um" "Power_3V3"
+  )
+  (via 
+    "Via[0-3]_600:300_um-Signal_Analog" "Via[0-3]_600:300_um" "Signal_Analog"
+  )
+  (via 
+    "Via[0-3]_800:400_um-Signal_Analog" "Via[0-3]_800:400_um" "Signal_Analog"
+  )
+  (via 
+    "Via[0-3]_600:300_um-USB_Diff" "Via[0-3]_600:300_um" "USB_Diff"
+  )
+  (via 
+    "Via[0-3]_800:400_um-USB_Diff" "Via[0-3]_800:400_um" "USB_Diff"
+  )
+  (via 
+    "Via[0-3]_600:300_um-GND" "Via[0-3]_600:300_um" GND
+  )
+  (via 
+    "Via[0-3]_800:400_um-GND" "Via[0-3]_800:400_um" GND
+  )
+  (via 
+    "Via[0-3]_600:300_um-Digital" "Via[0-3]_600:300_um" Digital
+  )
+  (via 
+    "Via[0-3]_800:400_um-Digital" "Via[0-3]_800:400_um" Digital
+  )
+  (via_rule
+    default "Via[0-3]_600:300_um"
+  )
+  (via_rule
+    default "Via[0-3]_600:300_um"
+  )
+  (via_rule
+    "Power_HV" "Via[0-3]_800:400_um-Power_HV"
+  )
+  (via_rule
+    "Power_LV" "Via[0-3]_800:400_um-Power_LV"
+  )
+  (via_rule
+    "Power_3V3" "Via[0-3]_600:300_um-Power_3V3"
+  )
+  (via_rule
+    "Signal_Analog" "Via[0-3]_600:300_um-Signal_Analog"
+  )
+  (via_rule
+    "USB_Diff" "Via[0-3]_600:300_um-USB_Diff"
+  )
+  (via_rule
+    GND "Via[0-3]_600:300_um-GND"
+  )
+  (via_rule
+    Digital "Via[0-3]_600:300_um-Digital"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 200.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+  (class "Power_HV"
+    VBAT VBUS
+    (clearance_class "Power_HV")
+    (via_rule "Power_HV")
+    (rule
+      (width 600.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+  (class "Power_LV"
+    VSYS
+    (clearance_class "Power_LV")
+    (via_rule "Power_LV")
+    (rule
+      (width 500.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+  (class "Power_3V3"
+    "3V3_AFE" "3V3_DIG"
+    (clearance_class "Power_3V3")
+    (via_rule "Power_3V3")
+    (rule
+      (width 350.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+  (class "Signal_Analog"
+    "EMG_N" "RLD_DRV" "ECG_P" "ECG_N" "EMG_P"
+    (clearance_class "Signal_Analog")
+    (via_rule "Signal_Analog")
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+  (class "USB_Diff"
+    "USB_DN" "USB_DP"
+    (clearance_class "USB_Diff")
+    (via_rule "USB_Diff")
+    (rule
+      (width 200.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+  (class GND
+    DGND AGND
+    (clearance_class GND)
+    (via_rule GND)
+    (rule
+      (width 300.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+  (class Digital
+    "LED_ALERT" "SPI_SCLK_AFE" "SPI_MOSI_AFE" "SPI_CS_AFE" "SPI_MISO_AFE" "SPI_MISO_DIG" "SPI_CS_DIG" "SPI_MOSI_DIG"
+    "SPI_SCLK_DIG" "ESP_EN" "ESP_IO0" "I2C_SDA" "I2C_SCL" "LED_STATUS"
+    (clearance_class Digital)
+    (via_rule Digital)
+    (rule
+      (width 200.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+)

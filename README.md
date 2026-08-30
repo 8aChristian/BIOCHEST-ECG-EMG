@@ -58,7 +58,7 @@ BIOCHEST-ECG/EMG is engineered to bridge the gap between expensive clinical medi
 
 ## ⚙️ Operating Principle & Signal Chain Flow
 
-The system captures biopotentials in the microvolt ($\mu	ext{V}$) range from the patient's skin, suppresses common-mode interference, isolates the signal across a 5kV barrier, and transmits digitized telemetry:
+The system captures biopotentials in the microvolt ($\mu\text{V}$) range from the patient's skin, suppresses common-mode interference, isolates the signal across a 5kV barrier, and transmits digitized telemetry:
 
 ```
 +---------------------------------------------------------------------------------------------------------+
@@ -145,35 +145,35 @@ The board integrates five 10mm medical male snap studs directly onto the PCBA, a
 ### Comprehensive Technical Specifications:
 | Parameter | Specification | Design Implementation |
 |---|---|---|
-| **Form Factor** | $64.0	ext{ mm} 	imes 38.0	ext{ mm} 	imes 1.6	ext{ mm}$ | 4-Layer FR4 ENIG with 5mm rounded ergonomic corners |
+| **Form Factor** | $64.0\text{ mm} 	imes 38.0\text{ mm} 	imes 1.6\text{ mm}$ | 4-Layer FR4 ENIG with 5mm rounded ergonomic corners |
 | **Channels** | 3 Analog Biopotential Channels | 1x ECG Differential, 1x EMG Differential, 1x Active RLD |
-| **ADC Resolution** | 24-Bit Sigma-Delta ($\Delta\Sigma$) | $1.2	ext{ nV/LSB}$ dynamic resolution |
-| **Input Noise** | $<7\mu	ext{V}_	ext{PP}$ ($0.05 - 100	ext{ Hz}$) | Guarded differential traces over solid $AGND$ |
-| **CMRR** | $>105	ext{ dB}$ ($50/60	ext{ Hz}$) | Active Right-Leg Drive feedback loop |
-| **Sampling Rate** | $100	ext{ SPS} - 25.6	ext{ kSPS}$ | Programmable decimation filter |
-| **Galvanic Isolation** | $5000	ext{ V}_	ext{RMS}$ (1 min) | Silicon capacitive isolation (`ISO7741U`) + Milled slot |
-| **Creepage / Clearance**| $>8.0	ext{ mm}$ Creepage / $>4.0	ext{ mm}$ Clearance | Meets **IEC 60601-1 (2x MOPP)** requirements |
+| **ADC Resolution** | 24-Bit Sigma-Delta ($\Delta\Sigma$) | $1.2\text{ nV/LSB}$ dynamic resolution |
+| **Input Noise** | $<7\mu\text{V}_\text{PP}$ ($0.05 - 100\text{ Hz}$) | Guarded differential traces over solid $AGND$ |
+| **CMRR** | $>105\text{ dB}$ ($50/60\text{ Hz}$) | Active Right-Leg Drive feedback loop |
+| **Sampling Rate** | $100\text{ SPS} - 25.6\text{ kSPS}$ | Programmable decimation filter |
+| **Galvanic Isolation** | $5000\text{ V}_\text{RMS}$ (1 min) | Silicon capacitive isolation (`ISO7741U`) + Milled slot |
+| **Creepage / Clearance**| $>8.0\text{ mm}$ Creepage / $>4.0\text{ mm}$ Clearance | Meets **IEC 60601-1 (2x MOPP)** requirements |
 | **Microcontroller** | ESP32-S3 Dual-Core Xtensa LX7 @ 240MHz | 512KB SRAM + 8MB QSPI Flash |
 | **Wireless Telemetry** | BLE 5.0 + Wi-Fi 802.11 b/g/n | Integrated PCB Antenna (impedance-matched) |
-| **Battery Autonomy** | $>24	ext{ hours}$ continuous acquisition | $800	ext{ mAh}$ LiPo ($3.7	ext{ V}$) via JST-PH header |
-| **Power Management** | Dynamic Power-Path with fast charge | `BQ24075` ($500	ext{ mA}$ charge rate) + USB Type-C |
+| **Battery Autonomy** | $>24\text{ hours}$ continuous acquisition | $800\text{ mAh}$ LiPo ($3.7\text{ V}$) via JST-PH header |
+| **Power Management** | Dynamic Power-Path with fast charge | `BQ24075` ($500\text{ mA}$ charge rate) + USB Type-C |
 
 ---
 
 ## 🛡️ Medical Safety & International Standards Compliance
 
 ### 1. IEC 60601-1 (Edition 3.2) & IEC 60601-2-47
-- **2x MOPP (Means of Patient Protection):** Reinforced dielectric barrier designed for a working voltage of $250	ext{ V}_	ext{RMS}$ mains with $5000	ext{ V}_	ext{RMS}$ withstand capability for 1 minute.
-- **Clearance:** $\ge 4.0	ext{ mm}$ line-of-sight distance across the isolation boundary.
-- **Creepage Distance:** $\ge 8.0	ext{ mm}$ achieved across the barrier through an integrated **$1.0	ext{ mm} 	imes 26.0	ext{ mm}$ milled isolation slot** in the PCB substrate (`Edge.Cuts`), eliminating surface tracking (CTI Group IIIa material rating).
-- **Patient Auxiliary Leakage Current:** $<2\mu	ext{A}$ under normal operating conditions ($<10\mu	ext{A}$ Single Fault Condition).
-- **Defibrillation Protection Consideration:** Input channels routed with low-capacitance TVS diode arrays (`TPD2E001`, $C_	ext{IO} = 0.9	ext{ pF}$) protecting up to $\pm 15	ext{ kV}$ Air / $\pm 8	ext{ kV}$ Contact ESD (IEC 61000-4-2).
+- **2x MOPP (Means of Patient Protection):** Reinforced dielectric barrier designed for a working voltage of $250\text{ V}_\text{RMS}$ mains with $5000\text{ V}_\text{RMS}$ withstand capability for 1 minute.
+- **Clearance:** $\ge 4.0\text{ mm}$ line-of-sight distance across the isolation boundary.
+- **Creepage Distance:** $\ge 8.0\text{ mm}$ achieved across the barrier through an integrated **$1.0\text{ mm} 	imes 26.0\text{ mm}$ milled isolation slot** in the PCB substrate (`Edge.Cuts`), eliminating surface tracking (CTI Group IIIa material rating).
+- **Patient Auxiliary Leakage Current:** $<2\mu\text{A}$ under normal operating conditions ($<10\mu\text{A}$ Single Fault Condition).
+- **Defibrillation Protection Consideration:** Input channels routed with low-capacitance TVS diode arrays (`TPD2E001`, $C_\text{IO} = 0.9\text{ pF}$) protecting up to $\pm 15\text{ kV}$ Air / $\pm 8\text{ kV}$ Contact ESD (IEC 61000-4-2).
 
 ### 2. IPC-2221B (Generic Standard on Printed Board Design)
-- **Conductor Sizing:** Power traces ($V_	ext{BUS}, V_	ext{SYS}, V_	ext{BAT}$) calculated for maximum $1.5	ext{ A}$ charging current with $\Delta T < 10^\circ	ext{C}$ rise on $1	ext{ oz}$ external copper ($35\mu	ext{m}$ thickness):
+- **Conductor Sizing:** Power traces ($V_\text{BUS}, V_\text{SYS}, V_\text{BAT}$) calculated for maximum $1.5\text{ A}$ charging current with $\Delta T < 10^\circ\text{C}$ rise on $1\text{ oz}$ external copper ($35\mu\text{m}$ thickness):
   $$I = k \cdot \Delta T^{0.44} \cdot A^{0.725}$$
-  For external layers ($k=0.048$), minimum trace width is $0.45	ext{ mm}$; routed with $0.60	ext{ mm}$ ($33\%$ design margin).
-- **Edge Pullback:** $>1.0	ext{ mm}$ copper-to-edge clearance across all 4 layers to prevent delamination during depaneling and routing.
+  For external layers ($k=0.048$), minimum trace width is $0.45\text{ mm}$; routed with $0.60\text{ mm}$ ($33\%$ design margin).
+- **Edge Pullback:** $>1.0\text{ mm}$ copper-to-edge clearance across all 4 layers to prevent delamination during depaneling and routing.
 
 ### 3. IPC-7351B (Generic Requirements for Surface Mount Design)
 - All footprint land patterns (WQFN-28, SOIC-16W, DFN-8, QFN-20, 0603 passives) comply with **Density Level B (Nominal Producibility)** ensuring optimal solder filleting, zero solder bridging, and reliable AOI/AXI inspection.
@@ -195,14 +195,14 @@ The board utilizes a standard industrial 4-layer symmetrical stackup (**JLC04161
 ```
 
 ### Controlled Impedance Calculations:
-1. **USB 2.0 High-Speed Differential Pair ($Z_	ext{diff} = 90\Omega \pm 10\%$):**
-   - **Trace Width ($W$):** $0.25	ext{ mm}$ ($9.84	ext{ mils}$)
-   - **Differential Spacing ($S$):** $0.20	ext{ mm}$ ($7.87	ext{ mils}$)
-   - **Dielectric Height ($H$):** $0.21	ext{ mm}$ ($8.27	ext{ mils}$)
+1. **USB 2.0 High-Speed Differential Pair ($Z_\text{diff} = 90\Omega \pm 10\%$):**
+   - **Trace Width ($W$):** $0.25\text{ mm}$ ($9.84\text{ mils}$)
+   - **Differential Spacing ($S$):** $0.20\text{ mm}$ ($7.87\text{ mils}$)
+   - **Dielectric Height ($H$):** $0.21\text{ mm}$ ($8.27\text{ mils}$)
    - **Calculated Differential Impedance:** $89.7\Omega$ (Verified with 2D Field Solver).
 
 2. **Analog Biosignal Traces ($ECG\_P/N, EMG\_P/N$):**
-   - **Trace Width:** $0.30	ext{ mm}$ ($11.8	ext{ mils}$) guarded by coplanar $AGND$ return path on top and continuous solid reference plane on Layer 2.
+   - **Trace Width:** $0.30\text{ mm}$ ($11.8\text{ mils}$) guarded by coplanar $AGND$ return path on top and continuous solid reference plane on Layer 2.
 
 ---
 
@@ -326,8 +326,8 @@ Running automated peripheral integrity audit...
 
 - **Design Rule Checks (DRC):** 100% passed via KiCad 10.0 CLI with **0 unconnected nets** and **0 short circuits**.
 - **Corner Routing Geometry:** Audited and verified with **0 right-angle (90°) turns** across all copper layers.
-- **Creepage & Clearance Verification:** Verified $>8.0	ext{ mm}$ creepage across milled slot.
-- **Signal Integrity:** Differential pair skew on USB lines $<5	ext{ ps}$, return current loops continuous with zero plane splits beneath high-speed signals.
+- **Creepage & Clearance Verification:** Verified $>8.0\text{ mm}$ creepage across milled slot.
+- **Signal Integrity:** Differential pair skew on USB lines $<5\text{ ps}$, return current loops continuous with zero plane splits beneath high-speed signals.
 
 ---
 
